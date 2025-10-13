@@ -1,4 +1,4 @@
-import '../styles/global.css';
+import './global.css';
 
 export const metadata = {
   title: 'CS124H',

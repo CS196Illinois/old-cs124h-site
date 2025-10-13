@@ -1,15 +1,15 @@
 import React from "react";
-import "../styles/global.css";
-import "../styles/Homepage.css";
+import "./global.css";
+import "./home.css";
 import dynamic from "next/dynamic";
 
-import NavbarWrapper from "../components/navbarWrapper";
+import Navbar from "../components/navbar";
 
 // add a button under the description that says "Syllabus" and links to the syllabus page
 export default function Home() {
   return (
     <div>
-      <NavbarWrapper />
+      <Navbar />
       <main className="main-container">
         <div className="text-wrapper">
           <h1 className="home-title">CS124Honors@Illinois</h1>
