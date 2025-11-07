@@ -1,28 +1,32 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Navbar from "../../components/navbar.js";
-import "../../styles/CourseStaff.css";
+import Navbar from "../../components/navbar";
+import StaffCard from "../../components/StaffCard";
+import SemesterTabs from "../../components/SemesterTabs";
+import "./CourseStaff.css";
 
-export default function Home() {
-  const [staffMembers, setStaffMembers] = useState([]); // [{ semester, staff: [...] }, ...]
-  const [selectedMember, setSelectedMember] = useState(null); // store the whole member object
+export default function CourseStaffPage() {
+  const [semestersData, setSemestersData] = useState([]); // [{ semester, data:[...] } or { semester, staff:[...] }]
+  const [selectedMember, setSelectedMember] = useState(null);
   const [selectedSemesterIndex, setSelectedSemesterIndex] = useState(0);
 
   useEffect(() => {
     let mounted = true;
     import("../../data/staff_data.json").then((mod) => {
-      // handle both { default: {data: [...]}} and { default: [...] } shapes gracefully
+      // Supports: export default [...] OR { default: { data: [...] } } OR { default: [...] }
       const payload = mod?.default ?? mod;
-      const semesters = payload?.data ?? payload ?? [];
-      if (mounted) setStaffMembers(Array.isArray(semesters) ? semesters : []);
+      const semesters =
+        Array.isArray(payload?.data) ? payload.data : Array.isArray(payload) ? payload : [];
+
+      if (mounted) setSemestersData(semesters);
     });
     return () => {
       mounted = false;
     };
   }, []);
 
-  // Lock scroll & add ESC-to-close when modal is open
+  // Lock scroll & enable ESC to close when modal is open
   useEffect(() => {
     if (!selectedMember) return;
 
@@ -43,71 +47,50 @@ export default function Home() {
   const openModal = (member) => setSelectedMember(member);
   const closeModal = () => setSelectedMember(null);
 
-  if (!staffMembers?.length) return null;
+  if (!semestersData?.length) return null;
+  
+  const getPeople = (semesterObj) => {
+    if (!semesterObj) return [];
+    if (Array.isArray(semesterObj.data)) return semesterObj.data;
+    if (Array.isArray(semesterObj.staff)) return semesterObj.staff;
+    return [];
+  };
 
-  // Guard the selected semester index
+  const semesterTitles = semestersData.map((s) => s.semester);
+
+  // Guarded index
   const safeSemesterIndex =
-    selectedSemesterIndex >= 0 && selectedSemesterIndex < staffMembers.length
+    selectedSemesterIndex >= 0 && selectedSemesterIndex < semestersData.length
       ? selectedSemesterIndex
       : 0;
 
-  const currentSemester = staffMembers[safeSemesterIndex];
-  const people = Array.isArray(currentSemester?.staff)
-    ? currentSemester.staff
-    : [];
+  const currentSemester = semestersData[safeSemesterIndex];
+  const people = getPeople(currentSemester);
 
   return (
     <div className="page-container">
       <Navbar />
       <main className="main-content">
         <div className="header">
-          <h1
-            className={`title ${selectedMember ? "opacity-20" : "opacity-100"}`}
-          >
+          <h1 className={`title ${selectedMember ? "opacity-20" : "opacity-100"}`}>
             Our Staff
           </h1>
         </div>
 
-        <div className="tabsContainer">
-          {staffMembers.map((semesterData, index) => (
-            <button
-              key={`${semesterData.semester}-${index}`}
-              onClick={() => {
-                setSelectedSemesterIndex(index);
-                // If you switch semesters, close any open modal to avoid stale data
-                if (selectedMember) closeModal();
-              }}
-              className={`tabButton ${
-                safeSemesterIndex === index ? "activeTab" : ""
-              }`}
-              type="button"
-            >
-              {semesterData.semester}
-            </button>
-          ))}
-        </div>
+        <SemesterTabs
+          semesters={semesterTitles}
+          selectedSemester={safeSemesterIndex}
+          onSelectSemester={(index) => {
+            setSelectedSemesterIndex(index);
+            if (selectedMember) closeModal();
+          }}
+        />
 
         <div
-          className={`staff-card-container ${
-            selectedMember ? "opacity-20" : "opacity-100"
-          }`}
+          className={`staff-card-container ${selectedMember ? "opacity-20" : "opacity-100"}`}
         >
           {people.map((member) => (
-            <div
-              className="staff-card-box"
-              key={member.id ?? member.name}
-              onClick={() => openModal(member)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) =>
-                (e.key === "Enter" || e.key === " ") && openModal(member)
-              }
-            >
-              <div className="staff-image-box">
-                <img src={member.image} alt={member.name} />
-              </div>
-              <p className="staff-card-text">{member.name}</p>
-            </div>
+            <StaffCard key={member.id ?? member.name} member={member} onClick={openModal} />
           ))}
         </div>
 
@@ -119,11 +102,7 @@ export default function Home() {
             aria-modal="true"
             aria-labelledby="member-name"
           >
-            <div
-              className="popup-content"
-              onClick={(e) => e.stopPropagation()}
-              role="document"
-            >
+            <div className="popup-content" onClick={(e) => e.stopPropagation()} role="document">
               <button className="close" onClick={closeModal} aria-label="Close">
                 &times;
               </button>
@@ -149,9 +128,7 @@ export default function Home() {
 
                   <div className="detail-item">
                     <div className="label">Semesters as PM:</div>
-                    <div className="value">
-                      {selectedMember.semesters || "N/A"}
-                    </div>
+                    <div className="value">{selectedMember.semesters || "N/A"}</div>
                   </div>
 
                   {selectedMember.email && (

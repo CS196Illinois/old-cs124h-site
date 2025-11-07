@@ -3,9 +3,9 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import styles from "../styles/Navbar.module.css";
+import styles from "./Navbar.module.css";
 
-const Navbar = () => {
+export default function Navbar() {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -177,5 +177,3 @@ const Navbar = () => {
     </>
   );
 };
-
-export default Navbar;

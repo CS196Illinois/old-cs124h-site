@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from "react";
-import styles from "../../styles/Leaderboard.module.css";
+import "./Leaderboard.css";
 import Navbar from "../../components/navbar";
 import { getGroupPointsSummary } from "./leaderboard_supabase";
 
@@ -14,7 +14,7 @@ const groups = [
   { rank: 7, name: "Group 2: HiHihihi", points: 20 },
 ];
 
-export default function Leaderboard() {
+export default function LeaderboardPage() {
   const [visibleCount, setVisibleCount] = useState(4);
   const [leaderboardData, setLeaderboardData] = useState([]);
 
@@ -39,32 +39,32 @@ export default function Leaderboard() {
   return (
     <>
       <Navbar />
-      <div className={styles.container}>
-        <h1 className={styles.title}>
+      <div className={"container"}>
+        <h1 className={"title"}>
           Leaderboard{" "}
           <span role="img" aria-label="trophy">
             🏆
           </span>
         </h1>
 
-        <div className={styles.groupList}>
+        <div className={"groupList"}>
           {leaderboardData.slice(0, visibleCount).map((group, index) => (
             <div
               key={group.rank}
-              className={`${styles.card} ${
-                index < 3 ? styles.topThree : styles.fourth
+              className={`${"card"} ${
+                index < 3 ? "topThree" : "fourth"
               }`}
             >
-              <div className={styles.rank}>#{group.rank}</div>
-              <div className={styles.name}>Group: {group.group_number}</div>
-              <div className={styles.points}>
+              <div className={"rank"}>#{group.rank}</div>
+              <div className={"name"}>Group: {group.group_number}</div>
+              <div className={"points"}>
                 Points: <span>{group.total_points}</span> 🏆
               </div>
             </div>
           ))}
         </div>
 
-        <button className={styles.moreButton} onClick={handleToggle}>
+        <button className={"moreButton"} onClick={handleToggle}>
           {visibleCount === groups.length ? "Show Less" : "Show More"}
         </button>
       </div>
