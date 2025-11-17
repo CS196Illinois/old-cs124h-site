@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Navbar from "../../../components/navbar.js";
 import styles from "./Checkin.module.css";
 
-export default function CheckinPage() {
+function CheckinPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [event, setEvent] = useState(null);
@@ -252,5 +252,22 @@ export default function CheckinPage() {
         </div>
       </main>
     </div>
+  );
+}
+
+export default function CheckinPage() {
+  return (
+    <Suspense fallback={
+      <div className={styles.pageContainer}>
+        <Navbar />
+        <main className={styles.mainContent}>
+          <div className={styles.loadingContainer}>
+            <p>Loading event details...</p>
+          </div>
+        </main>
+      </div>
+    }>
+      <CheckinPageContent />
+    </Suspense>
   );
 }
