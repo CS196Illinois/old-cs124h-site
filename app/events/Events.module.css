@@ -1,0 +1,538 @@
+/* Events Page Styles - Following CS124H Design System */
+
+.pageContainer {
+  background-color: #1e3877;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.mainContent {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.header {
+  text-align: center;
+  flex: 1;
+  transition: opacity 0.3s ease;
+}
+
+.header h1 {
+  color: #f9f9f9;
+  font-size: 3rem;
+  font-family: 'Kufam', sans-serif;
+  margin: 0;
+  transition: opacity 0.3s ease;
+}
+
+.headerBlurred {
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.manageButton {
+  position: absolute;
+  right: 0;
+  background-color: #ff9a35;
+  color: #112a67;
+  border: 2px solid #f9f9f9;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.manageButton:hover {
+  background-color: #f67b00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Tabs */
+.tabsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.tabButton {
+  background-color: #4f8dde;
+  color: #f9f9f9;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.tabButton:hover {
+  background-color: #3b82f6;
+  transform: translateY(-2px);
+}
+
+.activeTab {
+  background-color: #2563eb;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Loading and Empty States */
+.loadingContainer,
+.emptyContainer {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #f9f9f9;
+  font-size: 1.2rem;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Events Grid */
+.eventsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+  transition: opacity 0.3s ease;
+}
+
+.gridBlurred {
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+/* Event Cards */
+.eventCard {
+  background-color: #ff9a35;
+  border-radius: 1.5rem;
+  padding: 1.75rem;
+  border: 2px solid #f9f9f9;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 280px;
+}
+
+.eventCard:hover {
+  background-color: #f67b00;
+  transform: scale(1.03);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.eventCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.eventCardHeader h3 {
+  color: #112a67;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.3;
+  font-family: 'Inter', sans-serif;
+  flex: 1;
+}
+
+.pointsBadge {
+  background-color: #112a67;
+  color: #f9f9f9;
+  padding: 0.4rem 0.8rem;
+  border-radius: 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+}
+
+.eventCardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.eventDetail {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #112a67;
+  font-size: 0.95rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.eventDetail svg {
+  flex-shrink: 0;
+}
+
+.eventDescription {
+  color: #112a67;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0.5rem 0 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.modalContent {
+  background-color: #ff9a35;
+  border-radius: 1.5rem;
+  max-width: 700px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2.5rem;
+  position: relative;
+  border: 3px solid #f9f9f9;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #112a67;
+  border: none;
+  color: #f9f9f9;
+  font-size: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  line-height: 1;
+  padding: 0;
+}
+
+.closeButton:hover {
+  background: #0d1f4d;
+  transform: rotate(90deg);
+}
+
+.modalHeader {
+  margin-bottom: 2rem;
+  padding-right: 3rem;
+}
+
+.modalHeader h2 {
+  color: #112a67;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.pointsBadgeLarge {
+  background-color: #112a67;
+  color: #f9f9f9;
+  padding: 0.5rem 1.2rem;
+  border-radius: 1.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+}
+
+.modalBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.eventInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.infoRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  color: #112a67;
+}
+
+.infoRow svg {
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.infoRow strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.infoRow p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.4;
+  font-family: 'Inter', sans-serif;
+}
+
+.descriptionSection {
+  background-color: rgba(17, 42, 103, 0.1);
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+.descriptionSection h3 {
+  color: #112a67;
+  font-size: 1.3rem;
+  margin: 0 0 1rem 0;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+}
+
+.descriptionSection p {
+  color: #112a67;
+  line-height: 1.6;
+  margin: 0;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.modalActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.checkInButton {
+  background-color: #112a67;
+  color: #f9f9f9;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  max-width: 400px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.checkInButton:hover {
+  background-color: #0d1f4d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.checkInButton:disabled {
+  background-color: #6b7280;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.checkInButton:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.checkInNote {
+  color: #112a67;
+  font-size: 0.9rem;
+  margin: 0;
+  font-style: italic;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mainContent {
+    padding: 1rem;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .eventsGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .modalContent {
+    padding: 2rem 1.5rem;
+    max-height: 95vh;
+  }
+
+  .modalHeader h2 {
+    font-size: 1.5rem;
+  }
+
+  .tabButton {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.75rem;
+  }
+
+  .eventCardHeader h3 {
+    font-size: 1.2rem;
+  }
+
+  .modalContent {
+    padding: 1.5rem;
+  }
+
+  .closeButton {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+  }
+
+  .manageButton {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Admin Modal Styles */
+.adminModalContent {
+  background-color: #ff9a35;
+  border-radius: 1.5rem;
+  max-width: 500px;
+  width: 100%;
+  padding: 2.5rem;
+  position: relative;
+  border: 3px solid #f9f9f9;
+}
+
+.adminModalHeader {
+  margin-bottom: 2rem;
+  padding-right: 3rem;
+}
+
+.adminModalHeader h2 {
+  color: #112a67;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.adminModalHeader p {
+  color: #112a67;
+  font-size: 1rem;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.adminForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  color: #112a67;
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.adminInput {
+  padding: 0.75rem 1rem;
+  border: 2px solid #112a67;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  background-color: #f9f9f9;
+  color: #112a67;
+  transition: all 0.3s ease;
+}
+
+.adminInput:focus {
+  outline: none;
+  border-color: #0d1f4d;
+  box-shadow: 0 0 0 3px rgba(17, 42, 103, 0.1);
+}
+
+.adminInput::placeholder {
+  color: #6b7280;
+}
+
+.errorMessage {
+  background-color: rgba(220, 38, 38, 0.1);
+  border: 2px solid #dc2626;
+  color: #dc2626;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+}
+
+.adminSubmitButton {
+  background-color: #112a67;
+  color: #f9f9f9;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.adminSubmitButton:hover {
+  background-color: #0d1f4d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.adminSubmitButton:active {
+  transform: translateY(0);
+}

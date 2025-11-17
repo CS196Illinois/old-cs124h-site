@@ -101,6 +101,15 @@ export default function Navbar() {
               Timeline
             </button>
           </Link>
+          <Link href="/events">
+            <button
+              className={`${styles["nav-button"]} ${
+                pathname === "/events" ? styles.active : ""
+              }`}
+            >
+              Events
+            </button>
+          </Link>
         </div>
       </nav>
 
@@ -168,6 +177,15 @@ export default function Navbar() {
                   }`}
                 >
                   Timeline
+                </button>
+              </Link>
+              <Link href="/events" onClick={handleLinkClick}>
+                <button
+                  className={`${styles["nav-button"]} ${
+                    pathname === "/events" ? styles.active : ""
+                  }`}
+                >
+                  Events
                 </button>
               </Link>
             </div>
