@@ -1,8 +1,7 @@
-"use client"; // Required for useState and event handlers
+"use client";
 
 import React, { useState } from "react";
-import Navbar from "../../components/navbar.js";
-import "./HallOfFame.css";
+import styles from "./HallOfFame.module.css";
 import projects_data from "../../data/projects_data.json";
 import SemesterTabs from "../../components/SemesterTabs.js";
 import ProjectCard from "../../components/ProjectCard.js";
@@ -15,13 +14,12 @@ export default function HallOfFamePage() {
   const projects = projects_data.map((entry) => {if (entry.semester === semesters[selectedSemester]) return entry.data;}).flat().filter(Boolean);
 
   return (
-    <div className={"pageContainer"}>
-      <Navbar />
+    <div className={`${styles.pageContainer} pageContainer`}>
       {/* Main content area */}
-      <main className={"mainContent"}>
+      <main className={styles.mainContent}>
         {/* Header Section */}
-        <div className={"header"}>
-          <h1 className={"title"}>Welcome to the Hall of Fame!</h1>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Welcome to the Hall of Fame!</h1>
         </div>
 
         {/* Semester Selection Tabs */}
@@ -33,13 +31,13 @@ export default function HallOfFamePage() {
 
         {/* Project Grid Section */}
         {projects.length > 0 ? (
-          <div className={"projectGrid"}>
+          <div className={styles.projectGrid}>
             {projects.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
           </div>
         ) : (
-          <p className={"noProjects"}>
+          <p className={styles.noProjects}>
             No projects found for this semester.
           </p>
         )}

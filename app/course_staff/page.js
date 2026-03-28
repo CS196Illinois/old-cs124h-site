@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Navbar from "../../components/navbar";
 import StaffCard from "../../components/StaffCard";
 import SemesterTabs from "../../components/SemesterTabs";
-import "./CourseStaff.css";
+import styles from "./CourseStaff.module.css";
 
 export default function CourseStaffPage() {
   const [semestersData, setSemestersData] = useState([]); // [{ semester, data:[...] } or { semester, staff:[...] }]
@@ -68,11 +67,10 @@ export default function CourseStaffPage() {
   const people = getPeople(currentSemester);
 
   return (
-    <div className="page-container">
-      <Navbar />
-      <main className="main-content">
-        <div className="header">
-          <h1 className={`title ${selectedMember ? "opacity-20" : "opacity-100"}`}>
+    <div className={`${styles.pageContainer} pageContainer`}>
+      <main className={styles.mainContent}>
+        <div className={styles.header}>
+          <h1 className={`${styles.title} ${selectedMember ? styles.opacity20 : styles.opacity100}`}>
             Our Staff
           </h1>
         </div>
@@ -87,7 +85,7 @@ export default function CourseStaffPage() {
         />
 
         <div
-          className={`staff-card-container ${selectedMember ? "opacity-20" : "opacity-100"}`}
+          className={`${styles.staffCardContainer} ${selectedMember ? styles.opacity20 : styles.opacity100}`}
         >
           {people.map((member) => (
             <StaffCard key={member.id ?? member.name} member={member} onClick={openModal} />
@@ -96,51 +94,51 @@ export default function CourseStaffPage() {
 
         {selectedMember && (
           <div
-            className="popup"
+            className={styles.popup}
             onClick={closeModal}
             role="dialog"
             aria-modal="true"
             aria-labelledby="member-name"
           >
-            <div className="popup-content" onClick={(e) => e.stopPropagation()} role="document">
-              <button className="close" onClick={closeModal} aria-label="Close">
+            <div className={styles.popupContent} onClick={(e) => e.stopPropagation()} role="document">
+              <button className={styles.close} onClick={closeModal} aria-label="Close">
                 &times;
               </button>
 
-              <div className="image-popup">
+              <div className={styles.imagePopup}>
                 <img src={selectedMember.image} alt={selectedMember.name} />
               </div>
 
-              <div className="text-content">
+              <div className={styles.textContent}>
                 <h2 id="member-name">{selectedMember.name}</h2>
-                <p className="role">{selectedMember.role}</p>
+                <p className={styles.role}>{selectedMember.role}</p>
 
-                <div className="staff-details">
-                  <div className="detail-item">
-                    <div className="label">Year:</div>
-                    <div className="value">{selectedMember.year || "N/A"}</div>
+                <div className={styles.staffDetails}>
+                  <div className={styles.detailItem}>
+                    <div className={styles.label}>Year:</div>
+                    <div className={styles.value}>{selectedMember.year || "N/A"}</div>
                   </div>
 
-                  <div className="detail-item">
-                    <div className="label">Major:</div>
-                    <div className="value">{selectedMember.major || "N/A"}</div>
+                  <div className={styles.detailItem}>
+                    <div className={styles.label}>Major:</div>
+                    <div className={styles.value}>{selectedMember.major || "N/A"}</div>
                   </div>
 
-                  <div className="detail-item">
-                    <div className="label">Semesters as PM:</div>
-                    <div className="value">{selectedMember.semesters || "N/A"}</div>
+                  <div className={styles.detailItem}>
+                    <div className={styles.label}>Semesters as PM:</div>
+                    <div className={styles.value}>{selectedMember.semesters || "N/A"}</div>
                   </div>
 
                   {selectedMember.email && (
-                    <div className="detail-item">
-                      <div className="label">UIUC Email:</div>
-                      <div className="value">{selectedMember.email}</div>
+                    <div className={styles.detailItem}>
+                      <div className={styles.label}>UIUC Email:</div>
+                      <div className={styles.value}>{selectedMember.email}</div>
                     </div>
                   )}
                 </div>
 
-                <div className="bio-section">
-                  <div className="bio">{selectedMember.bio}</div>
+                <div className={styles.bioSection}>
+                  <div className={styles.bio}>{selectedMember.bio}</div>
                 </div>
               </div>
             </div>

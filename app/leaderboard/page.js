@@ -1,7 +1,7 @@
-'use client';
+"use client";
+
 import React, { useState, useEffect } from "react";
-import "./Leaderboard.css";
-import Navbar from "../../components/navbar";
+import styles from "./Leaderboard.module.css";
 import { getGroupPointsSummary } from "./leaderboard_supabase";
 
 const groups = [
@@ -37,37 +37,36 @@ export default function LeaderboardPage() {
   };
 
   return (
-    <>
-      <Navbar />
-      <div className={"container"}>
-        <h1 className={"title"}>
+    <div>
+      <div className={`${styles.pageContainer} pageContainer`}>
+        <h1 className={styles.title}>
           Leaderboard{" "}
           <span role="img" aria-label="trophy">
             🏆
           </span>
         </h1>
 
-        <div className={"groupList"}>
+        <div className={styles.groupList}>
           {leaderboardData.slice(0, visibleCount).map((group, index) => (
             <div
               key={group.rank}
-              className={`${"card"} ${
-                index < 3 ? "topThree" : "fourth"
+              className={`${styles.card} ${
+                index < 3 ? styles.topThree : styles.fourth
               }`}
             >
-              <div className={"rank"}>#{group.rank}</div>
-              <div className={"name"}>Group: {group.group_number}</div>
-              <div className={"points"}>
+              <div className={styles.rank}>#{group.rank}</div>
+              <div className={styles.name}>Group: {group.group_number}</div>
+              <div className={styles.points}>
                 Points: <span>{group.total_points}</span> 🏆
               </div>
             </div>
           ))}
         </div>
 
-        <button className={"moreButton"} onClick={handleToggle}>
+        <button className={styles.moreButton} onClick={handleToggle}>
           {visibleCount === groups.length ? "Show Less" : "Show More"}
         </button>
       </div>
-    </>
+    </div>
   );
 }

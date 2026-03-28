@@ -1,14 +1,12 @@
 import React from "react";
-import Navbar from "../../components/navbar.js";
-import "./Timeline.css";
+import styles from "./Timeline.module.css";
 
 export default function TimelinePage() {
   return (
-    <div className={"container"}>
-      <Navbar />
-      <main className={"main"}>
-        <div className={"boxWrapper"}>
-          <div className={"whiteBox"}>
+    <div className={`${styles.pageContainer} pageContainer`}>
+      <main className={styles.main}>
+        <div className={styles.boxWrapper}>
+          <div className={styles.whiteBox}>
             <h2>
               Add our GCAL{" "}
               <a
@@ -37,7 +35,7 @@ export default function TimelinePage() {
               ></iframe>
             </div>
           </div>
-          <div className={"greyBox"}>
+          <div className={styles.greyBox}>
             <h2>Upcoming Events</h2>
           </div>
         </div>

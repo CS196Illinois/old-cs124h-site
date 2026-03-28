@@ -4,9 +4,13 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./Navbar.module.css";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { data: session, status } = useSession();
+  const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -14,11 +18,13 @@ export default function Navbar() {
     const checkScreenSize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
+    
+    console.log(session);
 
     checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    
-    return () => window.removeEventListener('resize', checkScreenSize);
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
   const handleLinkClick = () => {
@@ -30,11 +36,11 @@ export default function Navbar() {
   };
 
   return (
-    <>
+    <div>
       <nav className={styles.navbar}>
         {/* Mobile hamburger menu */}
         {isMobile && (
-          <button 
+          <button
             className={styles["hamburger-menu"]}
             onClick={toggleSidebar}
             aria-label="Toggle menu"
@@ -46,16 +52,33 @@ export default function Navbar() {
         )}
 
         {/* Desktop navigation */}
-        <div className={`${styles["nav-items"]} ${isMobile ? styles.hidden : ''}`}>
+        <div
+          className={`${styles["nav-items"]} ${isMobile ? styles.hidden : ""}`}
+        >
           <Link href="/">
             <button
-              className={`${styles["nav-button"]} ${styles["home-button"]} ${
+              className={`${styles["nav-button"]} ${styles["home-button"]}  ${
                 pathname === "/" ? styles.active : ""
               }`}
             >
               Home
             </button>
           </Link>
+          <div>
+            <button
+              onClick={() => {
+                if (!session) {
+                  signIn("cilogon", { callbackUrl: "/user" })
+                }
+                router.push("/user");
+              }}
+              className={`${styles["nav-button"]} ${
+                pathname === `/user/${session?.user?.role}` ? styles.active : ""
+              }`}
+            >
+              Dashboard
+            </button>
+          </div>
           <Link href="/hall_of_fame">
             <button
               className={`${styles["nav-button"]} ${
@@ -101,30 +124,68 @@ export default function Navbar() {
               Timeline
             </button>
           </Link>
+          <div>
+            {status === "loading" ? (
+              <button className={styles["nav-button"]}>Loading…</button>
+            ) : session ? (
+              <button
+                className={styles["nav-button"]}
+                onClick={() => signOut({ callbackUrl: "/" })}
+              >
+                Logout
+              </button>
+            ) : (
+              <button
+                className={styles["nav-button"]}
+                onClick={() => signIn("cilogon", { callbackUrl: "/user" })}
+              >
+                Login
+              </button>
+            )}
+          </div>
         </div>
       </nav>
 
       {/* Mobile Sidebar */}
       {isMobile && (
-        <>
+        <div>
           {/* Overlay */}
-          <div 
-            className={`${styles.overlay} ${isSidebarOpen ? styles.active : ''}`}
+          <div
+            className={`${styles.overlay} ${
+              isSidebarOpen ? styles.active : ""
+            }`}
             onClick={handleLinkClick}
           ></div>
-          
+
           {/* Sidebar */}
-          <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ''}`}>
+          <div
+            className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ""}`}
+          >
             <div className={styles["sidebar-content"]}>
               <Link href="/" onClick={handleLinkClick}>
                 <button
-                  className={`${styles["nav-button"]} ${styles["home-button"]} ${
-                    pathname === "/" ? styles.active : ""
-                  }`}
+                  className={`${styles["nav-button"]} ${
+                    styles["home-button"]
+                  } ${pathname === "/" ? styles.active : ""}`}
                 >
                   Home
                 </button>
               </Link>
+              <div>
+                <button
+                  onClick={() => {
+                    if (!session) {
+                      signIn("cilogon", { callbackUrl: "/user" })
+                    }
+                    router.push("/user");
+                  }}
+                  className={`${styles["nav-button"]} ${
+                    pathname === `/user/${session?.user?.role}` ? styles.active : ""
+                  }`}
+                >
+                  Dashboard
+                </button>
+              </div>
               <Link href="/hall_of_fame" onClick={handleLinkClick}>
                 <button
                   className={`${styles["nav-button"]} ${
@@ -170,10 +231,18 @@ export default function Navbar() {
                   Timeline
                 </button>
               </Link>
+              <div>
+                <button
+                  className={`${styles["nav-button"]}`}
+                  onClick={() => signIn("cilogon", { callbackUrl: "/user" })}
+                >
+                  Sign in
+                </button>
+              </div>
             </div>
           </div>
-        </>
+        </div>
       )}
-    </>
+    </div>
   );
-};
+}

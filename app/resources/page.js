@@ -1,8 +1,4 @@
-"use client"; // Required for useState and event handlers
-
-import React, { useState } from "react";
-import Navbar from "../../components/navbar.js";
-import "./Resources.css";
+import styles from "./Resources.module.css";
 import lecture_content_data from "../../data/lecture_content_data.json";
 import BlogPostCard from "../../components/BlogPostCard.js";
 import VideoCard from "../../components/VideoCard.js";
@@ -15,37 +11,36 @@ export default function ResourcesPage() {
     lecture_content_data["Staff Technical Presentations"] || [];
 
   return (
-    <div className="pageContainer">
-      <Navbar />
-      <main className="mainContent">
-        <div className="resourceSection">
-          <div className="header">
-            <h1 className="title">Lecture Videos</h1>
+    <div className={`${styles.pageContainer} pageContainer`}>
+      <main className={styles.mainContent}>
+        <div className={styles.resourceSection}>
+          <div className={styles.header}>
+            <h1 className={styles.title}>Lecture Videos</h1>
           </div>
 
-          <div className="projectGrid">
+          <div className={styles.projectGrid}>
             {staffPresentations.map((project) => (
               <VideoCard key={project.id} project={project} />
             ))}
           </div>
         </div>
 
-        <div className="resourceSection">
-          <div className="header">
-            <h1 className="title">Blog Posts</h1>
+        <div className={styles.resourceSection}>
+          <div className={styles.header}>
+            <h1 className={styles.title}>Blog Posts</h1>
           </div>
 
-          <div className="projectGrid">
+          <div className={styles.projectGrid}>
             {blogPosts.map((project) => (
               <BlogPostCard key={project.id} project={project} />
             ))}
           </div>
         </div>
 
-        <div className="resourceVault">
-          <div className="header">
-            <h1 className="title">Resource Vault</h1>
-            <p className="vaultDescription">
+        <div className={styles.resourceVault}>
+          <div className={styles.header}>
+            <h1 className={styles.title}>Resource Vault</h1>
+            <p className={styles.vaultDescription}>
               {" "}
               The CS124 Honors resource vault is a Notion page created to keep
               track of useful external resources that Project Managers and their
