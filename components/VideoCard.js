@@ -1,3 +1,5 @@
+"use client";
+
 import styles from "./ProjectCard.module.css";
 import { VideoIcon } from "@phosphor-icons/react";
 

@@ -1,13 +1,3 @@
-.pageContainer {
-  min-height: 100vh;
-}
-
-.main-content {
-  background-color: #112A67; 
-  color: #ffffff; 
-  padding: 2rem;
-}
-
 .header {
   text-align: center;
   padding: 2rem;
@@ -21,7 +11,7 @@
   color: #f9fafb;
 }
 
-.staff-card-container {
+.staffCardContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
@@ -31,54 +21,11 @@
   transition: opacity 0.3s ease;
 }
 
-.staff-card-box {
-  background-color: #FF9A35;
-  border-radius: 1.5rem;
-  aspect-ratio: 4/5;
-  padding: 1.25rem;
-  border: 2px solid #f9f9f9;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transform: scale(1);
-  transition: all 0.3s ease;
-}
-
-.staff-card-box:hover {
-  background-color: #f67b00;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  transform: scale(1.05);
-}
-
-.staff-image-box {
-  background-color: #f9f9f9;
-  border-radius: 1rem;
-  border: 2px solid #f9f9f9;
-  overflow: hidden;
-  margin-bottom: 1rem;
-  aspect-ratio: 6/7;
-}
-
-.staff-image-box img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.staff-card-text {
-  text-align: center;
-  font-weight: 500;
-  font-size: 1.125rem;
-  color: white;
-  margin: 0;
-  padding: 0 0.5rem 0.5rem 0.5rem;
-}
-
-.opacity-20 {
+.opacity20 {
   opacity: 0.2;
 }
 
-.opacity-100 {
+.opacity100 {
   opacity: 1;
 }
 
@@ -96,7 +43,7 @@
   padding: 1rem;
 }
 
-.popup-content {
+.popupContent {
   background-color: #FF9A35;
   border-radius: 1rem;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
@@ -129,7 +76,7 @@
   color: #3B4D8C;
 }
 
-.image-popup {
+.imagePopup {
   flex-shrink: 0;
   margin-bottom: 1.5rem;
   width: 100%;
@@ -143,19 +90,19 @@
   aspect-ratio: 1;
 }
 
-.image-popup img {
+.imagePopup img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.text-content {
+.textContent {
   flex: 1;
   color: white;
   text-align: center;
 }
 
-.text-content h2 {
+.textContent h2 {
   font-size: 2rem;
   font-weight: bold;
   color: #1E3877;
@@ -163,19 +110,19 @@
   margin-top: 1.25rem;
 }
 
-.text-content .role {
+.textContent .role {
   font-style: italic;
   font-size: 1.25rem;
   color: #1E3877;
   margin-bottom: 2rem;
 }
 
-.staff-details {
+.staffDetails {
   margin-bottom: 1.5rem;
   text-align: left;
 }
 
-.detail-item {
+.detailItem {
   margin-bottom: 1rem;
 }
 
@@ -190,7 +137,7 @@
   margin-bottom: 0.5rem;
 }
 
-.bio-section {
+.bioSection {
   border-left: 4px solid white;
   padding-left: 1.5rem;
   margin-left: 1rem;
