@@ -1,10 +1,10 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function SignIn() {
+function SignInInner() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -12,9 +12,13 @@ export default function SignIn() {
     signIn("cilogon", { callbackUrl });
   }, []);
 
+  return <p>Signing you in</p>;
+}
+
+export default function SignIn() {
   return (
-    <>
-      <p>Signing you in</p>
-    </>
+    <Suspense fallback={<p>Signing you in</p>}>
+      <SignInInner />
+    </Suspense>
   );
 }
