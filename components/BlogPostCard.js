@@ -1,3 +1,5 @@
+"use client";
+
 import styles from "./ProjectCard.module.css";
 import { NoteIcon } from "@phosphor-icons/react";
 

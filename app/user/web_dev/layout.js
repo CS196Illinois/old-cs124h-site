@@ -7,9 +7,11 @@ export const metadata = {
 
 export default function WebDevLayout({ children }) {
   return (
-    <div style={{ display: "flex", width: "100%", height: "100%" }}>
-      <WebSidebar/>
-      {children}
+    <div style={{ display: "flex", width: "100%", height: "calc(100vh - var(--navbar-height))", overflow: "hidden" }}>
+      <WebSidebar />
+      <div style={{ flex: 1, overflowY: "auto", minHeight: 0 }}>
+        {children}
+      </div>
     </div>
   );
 }

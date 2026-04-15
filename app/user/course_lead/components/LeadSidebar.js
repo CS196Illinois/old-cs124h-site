@@ -2,43 +2,39 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 import styles from "./UserSidebar.module.css";
-import { useSession } from "next-auth/react";
 
 const links = [
   { href: "/", label: "Dashboard" },
-  { href: "/profile", label: "Profile" },
+  { href: "/people", label: "People" },
   { href: "/action_items", label: "Action Items" },
-  { href: "/student_attendance", label: "Student Attendance" },
-  { href: "/settings", label: "Settings" },
-  { href: "/logout", label: "Logout" },
+  { href: "/events", label: "Events" },
 ];
 
 export default function LeadSidebar() {
   const pathname = usePathname();
   const { data: session, status } = useSession();
-  console.log(session);
 
-  // Don't render sidebar until session is loaded to avoid fallback routes
-  if (status === "loading") {
-    return null;
-  }
+  if (status === "loading") return null;
 
   const role = session?.user?.role;
   const base = role ? `/user/${role}` : null;
-
-  // If user is not authenticated, don't render the sidebar
-  if (!base) {
-    return null;
-  }
+  if (!base) return null;
 
   return (
     <aside className={styles.sidebar}>
+      <div className={styles.siteTitle}>CS 124H</div>
+      <div className={styles.roleTitle}>Course Lead</div>
+      {session?.user?.name && (
+        <div className={styles.userName}>{session.user.name}</div>
+      )}
       <div className={styles.linkGroup}>
         {links.map((link) => {
           const fullHref = link.href === "/" ? base : `${base}${link.href}`;
-          const isActive = pathname === fullHref || pathname.startsWith(`${fullHref}/`);
-
+          const isActive = link.href === "/"
+            ? pathname === fullHref
+            : pathname === fullHref || pathname.startsWith(`${fullHref}/`);
           return (
             <Link
               key={link.href}
@@ -51,6 +47,12 @@ export default function LeadSidebar() {
           );
         })}
       </div>
+      <button
+        className={styles.logoutBtn}
+        onClick={() => signOut({ callbackUrl: "/" })}
+      >
+        Logout
+      </button>
     </aside>
   );
 }

@@ -1,8 +1,9 @@
 import Link from "next/link";
 import styles from "./Unauthorized.module.css";
 
-export default function UnauthorizedPage({ searchParams }) {
-  const callbackUrl = searchParams?.callbackUrl || "/user";
+export default async function UnauthorizedPage({ searchParams }) {
+  const params = await searchParams;
+  const callbackUrl = params?.callbackUrl || "/user";
   const loginUrl = `/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`;
 
   return (

@@ -7,9 +7,11 @@ export const metadata = {
 
 export default function StudentLayout({ children }) {
   return (
-    <div style={{ display: "flex", width: "100%", height: "100%" }}>
-      <StudentSidebar/>
-      {children}
+    <div style={{ display: "flex", width: "100%", height: "calc(100vh - var(--navbar-height))", overflow: "hidden" }}>
+      <StudentSidebar />
+      <div style={{ flex: 1, overflowY: "auto", minHeight: 0 }}>
+        {children}
+      </div>
     </div>
   );
 }
